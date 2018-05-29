@@ -574,39 +574,39 @@ VALUES ('S01E02 - EPISODE 2',
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
 VALUES ('S01E01 - EPISODE 1', 
 	'Nous n''avons pas encore de synopsis disponible pour cet épisode',
-	'16/05/2017', 
+	'05/16/2017', 
 	55,	2);
 
 	-- The Handmaid's Tale - 1
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
 VALUES ('S01E01 - DEFRED', 
 	'Dans une société du futur, la République de Gilead, les femmes ont perdu tous leurs droits et sont entièrement soumises aux hommes. Mais le gouvernement, phallocratique, réactionnaire et totalitaire, est confronté à un défi : la pollution a rendu stériles la plupart des femmes. Pour tenter d''enrayer le déclin de la population, les femmes fertiles, membres de la caste des Servantes, sont réduites au rang d''esclaves sexuelles. Offred, l''une d''elles, est assignée comme reproductrice à un des dirigeants de la junte. Elle doit impérativement lui donner un enfant...',
-	'26/04/2017', 
+	'04/26/2017', 
 	70,	4);
 
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
 VALUES ('S01E02 - JOUR DE NAISSANCE', 
 	'Offred et trois autres femmes participent à l''accouchement d''une Servante, Janine. Lorsque la délivrance approche, l''Epouse est appelée auprès de Janine. Le bébé lui est aussitôt confié sans que Janine puisse le voir. Offred ne peut pas s''empêcher de se remémorer la naissance de sa fille et les moments heureux partagés avec sa famille. La jeune femme est inquiète : le commandant Waterford, qui l''a violée le matin, souhaite la revoir le soir même...',
-	'26/04/2017',
+	'04/26/2017',
 	70,	4);
 
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
 VALUES ('S01E03 - RETARD', 
 	'En même temps que le reste de la maisonnée, où chacun de ses gestes est surveillé, Offred découvre qu''elle est peut-être enceinte. Emplie d''espoir, Serena Joy se montre pleine d''égards pour elle. Malheureusement, malgré son état supposé, Offred ne se voit pas épargner toutes les humiliations liées à son statut de Servante. Elle est interrogée sans ménagement par tante Lydia sur la nature de sa relation avec Ofglen, soupçonnée d''être homosexuelle. De son côté, Ofglen, redevenue Emily depuis qu''elle n''est plus utile à son Commandant, subit une terrible mutilation...',
-	'26/04/2017', 
+	'04/26/2017', 
 	70,	4);
 
 	-- The Handmaid's Tale - 2
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
 VALUES ('S02E01 - JUNE', 
 	'Offred fait face aux conséquences d''une décision dangereuse alors qu''elle est hantée par les souvenirs de son passé et les débuts violents de Gilead.',
-	'25/04/2018', 
+	'04/25/2018', 
 	70,	5);
 
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
 VALUES ('S02E02 - UNWOMEN', 
 	'Offred s''adapte à un nouveau mode de vie; L''arrivée d''une personne inattendue perturbe les colonies; Une famille est déchirée par l''ascension de Gilead.',
-	'25/04/2018', 
+	'04/25/2018', 
 	70,	5);
 
 INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, fk_idSaison) 
