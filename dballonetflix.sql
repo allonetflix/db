@@ -30,14 +30,15 @@ CREATE TABLE schema.user (
 	password VARCHAR(100),
 	lastName VARCHAR(100),
 	firstName VARCHAR(100),
-	address VARCHAR(100),
+	nbStreet INT,
+	street VARCHAR(100),
+	city VARCHAR(100),
 	postalCode INT,
 	sex VARCHAR(100),
-	dayBirth INT,
-	monthBirth INT,
-	yearBirth INT,
+	birthDay DATE,
 	inscriptionDate DATE,
-	modifDate DATE
+	modifDate DATE,
+	rgpd BOOLEAN
 );
 
 -- -----------------------------------------------------
@@ -406,17 +407,17 @@ SELECT * FROM schema.note;
 
 
 -- Insert user
-INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, address, postalCode, sex, dayBirth, monthBirth, yearBirth, inscriptionDate)
-VALUES ('testPseudo', 'testEmail', 'testMdp', 'testLastName', 'testFirstName', '15 rue du clos d''en haut', 100, 'f', 23, 2, 1993, current_date);
+INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, nbStreet, street, city, postalCode, sex, birthDay, inscriptionDate, rgpd)
+VALUES ('testPseudo', 'testEmail', 'testMdp', 'testLastName', 'testFirstName', 15, 'rue du clos d''en haut', 'Conflans', 78700, 'f', '23/02/1993', current_date, TRUE);
 
-INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, address, postalCode, sex, dayBirth, monthBirth, yearBirth, inscriptionDate)
-VALUES ('mewenPseudo', 'mewenEmail', 'mewenMdp', 'mewenLastName', 'mewenFirstName', '2 rue de mewenVille', 239, 'm', 23, 2, 1984, current_date);
+INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, nbStreet, street, city, postalCode, sex, birthDay, inscriptionDate, rgpd)
+VALUES ('mewenPseudo', 'mewenEmail', 'mewenMdp', 'mewenLastName', 'mewenFirstName', 2, 'rue de mewenVille', 'mewenVille', 239, 'm', '22/02/1984', current_date, FALSE);
 
-INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, address, postalCode, sex, dayBirth, monthBirth, yearBirth, inscriptionDate)
-VALUES ('aliPseudo', 'aliEmail', 'aliMdp', 'aliLastName', 'aliFirstName', '56 rue de aliVille', 098, 'm', 8, 10, 1990, current_date);
+INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, nbStreet, street, city, postalCode, sex, birthDay, inscriptionDate, rgpd)
+VALUES ('aliPseudo', 'aliEmail', 'aliMdp', 'aliLastName', 'aliFirstName', 56, 'rue de aliVille', 'aliVille', 098, 'm', '8/10/1990', current_date, FALSE);
 
-INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, address, postalCode, sex, dayBirth, monthBirth, yearBirth, inscriptionDate)
-VALUES ('davidPseudo', 'davidEmail', 'davidMdp', 'davidLastName', 'davidFirstName', '4 rue de davidVille', 7089, 'm', 30, 7, 1988, current_date);
+INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, nbStreet, street, city, postalCode, sex, birthDay, inscriptionDate, rgpd)
+VALUES ('davidPseudo', 'davidEmail', 'davidMdp', 'davidLastName', 'davidFirstName', 4, 'rue de davidVille', 'davidVille', 7089, 'm', '30/07/1988', current_date, TRUE);
 
 SELECT * FROM schema.user;
 
