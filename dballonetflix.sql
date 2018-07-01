@@ -53,7 +53,8 @@ CREATE TABLE schema.article (
 	content TEXT,
 	creationDate DATE,
 	modifDate DATE,
-	fk_idAuteur INT REFERENCES schema.user
+	auteur VARCHAR(100),
+	note INT
 );
 
 -- -----------------------------------------------------
@@ -84,7 +85,10 @@ CREATE TABLE schema.actor (
 
 	idActor SERIAL PRIMARY KEY,
 	lastName VARCHAR(100),
-	firstName VARCHAR(100)
+	firstName VARCHAR(100),
+	nationality VARCHAR(100),
+	birthDay DATE,
+	age INT
 );
 
 -- -----------------------------------------------------
@@ -176,7 +180,8 @@ CREATE TABLE schema.media (
 	fk_idSerie INT REFERENCES schema.serie,
 	fk_idSaison INT REFERENCES schema.saison,	
 	fk_idEpisode INT REFERENCES schema.episode,
-	fk_idMovie INT REFERENCES schema.movie
+	fk_idMovie INT REFERENCES schema.movie,
+	fk_idActor INT REFERENCES schema.actor
 );
 
 -- -----------------------------------------------------
@@ -255,17 +260,6 @@ CREATE TABLE schema.movie_tag (
 );
 
 -- NOTE --
--- -----------------------------------------------------
--- Table schema.User_Note
--- -----------------------------------------------------
-
-CREATE TABLE schema.user_note (
-
-	idUser_note SERIAL PRIMARY KEY,
-	fk_idUser INT REFERENCES schema.user,
-	fk_idNote INT REFERENCES schema.note
-);
-
 -- -----------------------------------------------------
 -- Table schema.Article_Note
 -- -----------------------------------------------------
@@ -379,6 +373,62 @@ CREATE TABLE schema.movie_realisator (
 );
 
 
+-- LIKE --
+-- -----------------------------------------------------
+-- Table schema.Article_Like
+-- -----------------------------------------------------
+
+CREATE TABLE schema.article_like (
+
+	idArticle_like SERIAL PRIMARY KEY,
+	fk_idArticle INT REFERENCES schema.article,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Serie_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.serie_like (
+
+	idSerie_like SERIAL PRIMARY KEY,
+	fk_idSerie INT REFERENCES schema.serie,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Saison_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.saison_like (
+
+	idSaison_like SERIAL PRIMARY KEY,
+	fk_idSaison INT REFERENCES schema.saison,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Episode_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.episode_like (
+
+	idEpisode_like SERIAL PRIMARY KEY,
+	fk_idEpisode INT REFERENCES schema.episode,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Movie_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.movie_like (
+
+	idMovie_like SERIAL PRIMARY KEY,
+	fk_idMovie INT REFERENCES schema.movie,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
 
 -- Insert tag
 INSERT INTO schema.tag ( tag) VALUES ('animation');
@@ -448,6 +498,13 @@ VALUES ('L''Arme Fatale, Esprits Criminels... Ces séries qui ont viré leurs ac
 Le lendemain des accusations, Crawford publie sa version des faits sur son compte Instagram : "Il est vrai que j''ai été réprimandé à deux reprises au cours des saisons écoulées de L''Arme fatale. La première fois lorsque j''ai réagi sous le coup de la colère à des conditions de tournage qui ne me paraissaient pas sûres et propices à un travail de qualité (…) Le second incident est intervenu au cours d''un épisode que j''ai réalisé. Un acteur de la série ne s''est pas senti en sécurité après avoir été blessé par un éclat lors du tournage d''une cascade. (...) J''assume l''entière responsabilité de l''incident car ce jour-là, le plateau était placé sous ma responsabilité." L''acteur en question n''est autre que sa co-star, Damon Wayans, qui se lâche dans la foulée sur les réseaux sociaux.',
 	current_date, 3);
 
+INSERT INTO schema.article ( title, description, content, creationDate, fk_idAuteur)
+VALUES ('Mewen Test', 
+	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
+	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
+	'26/05/2018', 1);
+
+
 SELECT * FROM schema.article;
 
 
@@ -476,12 +533,12 @@ SELECT * FROM schema.realisator;
 
 
 -- Insert actor
-INSERT INTO schema.actor ( lastName, firstName) VALUES ('DiCaprio', 'Leonardo');
-INSERT INTO schema.actor ( lastName, firstName) VALUES ('Depp', 'Johnny');
-INSERT INTO schema.actor ( lastName, firstName) VALUES ('Eastwood', 'Clint');
-INSERT INTO schema.actor ( lastName, firstName) VALUES ('Pitt', 'Brad');
-INSERT INTO schema.actor ( lastName, firstName) VALUES ('Hanks', 'Tom');
-INSERT INTO schema.actor ( lastName, firstName) VALUES ('Pacino', 'Al');
+INSERT INTO schema.actor ( lastName, firstName, nationality, birthDay, age) VALUES ('DiCaprio', 'Leonardo', 'américain', '02/01/1970', 32);
+INSERT INTO schema.actor ( lastName, firstName, nationality, birthDay, age) VALUES ('Depp', 'Johnny', 'américain', '14/08/1964', 53);
+INSERT INTO schema.actor ( lastName, firstName, nationality, birthDay, age) VALUES ('Eastwood', 'Clint', 'américain', '30/05/1972', 47);
+INSERT INTO schema.actor ( lastName, firstName, nationality, birthDay, age) VALUES ('Pitt', 'Brad', 'américain', '17/01/1982', 36);
+INSERT INTO schema.actor ( lastName, firstName, nationality, birthDay, age) VALUES ('Hanks', 'Tom', 'américain', '03/03/1993', 78);
+INSERT INTO schema.actor ( lastName, firstName, nationality, birthDay, age) VALUES ('Pacino', 'Al', 'italien', '24/03/1966', 55);
 
 SELECT * FROM schema.actor;
 
@@ -725,6 +782,11 @@ VALUES ('Monsieur Je Sais Tout' , 'Image',
 	'http://fr.web.img5.acsta.net/c_215_290/pictures/18/03/21/17/41/1068458.jpg',
 	1, 3);
 
+INSERT INTO schema.media ( title, type, url, fk_idActor)
+VALUES ('Leonardo Dicaprio' , 'Image', 
+	'https://m.media-amazon.com/images/M/MV5BMjI0MTg3MzI0M15BMl5BanBnXkFtZTcwMzQyODU2Mw@@._V1_UY317_CR10,0,214,317_AL_.jpg',
+	2);
+
 -- VIDEO --
 INSERT INTO schema.media ( title, type, url, fk_idAuteur, fk_idArticle)
 VALUES ('DeadPool' , 'Vidéo', 
@@ -790,9 +852,6 @@ INSERT INTO schema.movie_tag ( fk_idMovie, fk_idTag) VALUES ( 2, 3);
 
 
 -- NOTE --
--- Insert user_note
-INSERT INTO schema.user_note ( fk_idUser, fk_idNote) VALUES ( 2, 3);
-
 -- Insert article_note
 INSERT INTO schema.article_note ( fk_idArticle, fk_idNote) VALUES ( 2, 3);
 
