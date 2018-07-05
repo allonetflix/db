@@ -36,10 +36,10 @@ CREATE TABLE schema.article (
 	synopsis TEXT,
 	content TEXT,
 	creationDate DATE,
-	auteur VARCHAR(100),
     img VARCHAR(255),
 	note INT,
-    tag VARCHAR(100)[]
+    tag VARCHAR(100)[],
+	fk_idAuteur INT REFERENCES schema.user
 );
 
 -- -----------------------------------------------------
@@ -55,7 +55,8 @@ CREATE TABLE schema.serie (
 	distributor VARCHAR(100),
     img VARCHAR(255),
     note INT,
-    tag VARCHAR(100)[]
+    tag VARCHAR(100)[],
+	creationDate DATE
 );
 
 -- -----------------------------------------------------
@@ -69,6 +70,7 @@ CREATE TABLE schema.saison (
 	synopsis TEXT,
     img VARCHAR(255),
     note INT,
+	creationDate DATE,
 	fk_idSerie INT REFERENCES schema.serie
 );
 
@@ -87,6 +89,7 @@ CREATE TABLE schema.episode (
     realisator VARCHAR(100),
     img VARCHAR(255),
     note INT,
+	creationDate DATE,
 	fk_idSaison INT REFERENCES schema.saison
 );
 
@@ -107,7 +110,8 @@ CREATE TABLE schema.movie (
     realisator VARCHAR(100),
     img VARCHAR(255),
     note INT,
-    tag VARCHAR(100)[]    
+    tag VARCHAR(100)[],
+	creationDate DATE    
 );
 
 -- -----------------------------------------------------
@@ -156,131 +160,152 @@ INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img
 VALUES ('Siren : la série fantastique de Freeform', 
 	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
 	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
-	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 5, ARRAY['relation humaine', 'humour']);
+	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 2, ARRAY['relation humaine', 'humour']);
 
 INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
 VALUES ('Siren : la série fantastique de Freeform', 
 	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
 	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
-	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 5, ARRAY['relation humaine', 'humour']);
+	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 3, ARRAY['relation humaine', 'humour']);
 
 INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
 VALUES ('Siren : la série fantastique de Freeform', 
 	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
 	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
-	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 5, ARRAY['relation humaine', 'humour']);
+	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 4, ARRAY['relation humaine', 'humour']);
+
+
+INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
+VALUES ('Siren : la série fantastique de Freeform', 
+	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
+	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
+	'06/11/2018', 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 3, ARRAY['relation humaine', 'humour']);
+
+INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
+VALUES ('Siren : la série fantastique de Freeform', 
+	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
+	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
+	'20/12/2018', 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 4, ARRAY['relation humaine', 'humour']);
 
 SELECT * FROM schema.article;
 
 
 -- Insert serie
-INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag) 
+INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag, creationDate) 
 VALUES ('Safe', 
 	'Récemment veuf, Tom est à l''aube d''une nouvelle vie avec ses deux filles, au sein d''une communauté privilégiée et protégée. Mais des secrets profondément enfouis vont venir bouleverser tout ce bel équilibre. Disparition mystérieuse, adultères, assassinat…',
-	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 2, ARRAY['guerre', 'fantaisie']);
+	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 2, ARRAY['guerre', 'fantaisie'], current_date);
 
-INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag) 
+INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag, creationDate) 
 VALUES ('Safe', 
 	'Récemment veuf, Tom est à l''aube d''une nouvelle vie avec ses deux filles, au sein d''une communauté privilégiée et protégée. Mais des secrets profondément enfouis vont venir bouleverser tout ce bel équilibre. Disparition mystérieuse, adultères, assassinat…',
-	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 2, ARRAY['guerre', 'fantaisie']);
+	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 5, ARRAY['guerre', 'fantaisie'], current_date);
 
-INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag) 
+INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag, creationDate) 
 VALUES ('Safe', 
 	'Récemment veuf, Tom est à l''aube d''une nouvelle vie avec ses deux filles, au sein d''une communauté privilégiée et protégée. Mais des secrets profondément enfouis vont venir bouleverser tout ce bel équilibre. Disparition mystérieuse, adultères, assassinat…',
-	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 2, ARRAY['guerre', 'fantaisie']);
+	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 3, ARRAY['guerre', 'fantaisie'], current_date);
 
-INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag) 
+INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag, creationDate) 
 VALUES ('Safe', 
 	'Récemment veuf, Tom est à l''aube d''une nouvelle vie avec ses deux filles, au sein d''une communauté privilégiée et protégée. Mais des secrets profondément enfouis vont venir bouleverser tout ce bel équilibre. Disparition mystérieuse, adultères, assassinat…',
-	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 2, ARRAY['guerre', 'fantaisie']);
+	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 1, ARRAY['guerre', 'fantaisie'], current_date);
 
 SELECT * FROM schema.serie;
 
 
 -- Insert saison
-INSERT INTO schema.saison ( title, synopsis, img, note, fk_idSerie) 
-VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, 1);
+INSERT INTO schema.saison ( title, synopsis, img, note, creationDate, fk_idSerie) 
+VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, current_date, 1);
 
-INSERT INTO schema.saison ( title, synopsis, img, note, fk_idSerie) 
-VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, 1);
+INSERT INTO schema.saison ( title, synopsis, img, note, creationDate, fk_idSerie) 
+VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, current_date, 2);
 
-INSERT INTO schema.saison ( title, synopsis, img, note, fk_idSerie) 
-VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, 1);
+INSERT INTO schema.saison ( title, synopsis, img, note, creationDate, fk_idSerie) 
+VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 0, current_date, 3);
 
-INSERT INTO schema.saison ( title, synopsis, img, note, fk_idSerie) 
-VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, 1);
-
-INSERT INTO schema.saison ( title, synopsis, img, note, fk_idSerie) 
-VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 3, 1);
+INSERT INTO schema.saison ( title, synopsis, img, note, creationDate, fk_idSerie) 
+VALUES ('Safe : Saison 1', 'Synopsis Safe : Saison 1', 'https://pbs.twimg.com/media/DWNV3BUVQAAcxHr.jpg', 1, current_date, 1);
 
 SELECT * FROM schema.saison;
 
 
 -- Insert episode
 	-- Safe
-INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, fk_idSaison) 
+INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, creationDate, fk_idSaison) 
 VALUES ('S01E01 - UN QUARTIER PAISIBLE', 
 	'Sans nouvelle de sa fille adolescente après une soirée un peu trop arrosée, Tom Delaney décide de se mettre à sa recherche, quitte à bouleverser la tranquille communauté dans laquelle vivent lui et sa famille. Tous ses résidents vont alors être eux aussi embarqués dans un véritable cauchemar.',
-	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 3, 1);
+	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 0, current_date, 1);
 
-INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, fk_idSaison) 
+INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, creationDate, fk_idSaison) 
 VALUES ('S01E01 - UN QUARTIER PAISIBLE', 
 	'Sans nouvelle de sa fille adolescente après une soirée un peu trop arrosée, Tom Delaney décide de se mettre à sa recherche, quitte à bouleverser la tranquille communauté dans laquelle vivent lui et sa famille. Tous ses résidents vont alors être eux aussi embarqués dans un véritable cauchemar.',
-	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 3, 1);
+	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 1, current_date, 1);
 
-INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, fk_idSaison) 
+INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, creationDate, fk_idSaison) 
 VALUES ('S01E01 - UN QUARTIER PAISIBLE', 
 	'Sans nouvelle de sa fille adolescente après une soirée un peu trop arrosée, Tom Delaney décide de se mettre à sa recherche, quitte à bouleverser la tranquille communauté dans laquelle vivent lui et sa famille. Tous ses résidents vont alors être eux aussi embarqués dans un véritable cauchemar.',
-	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 3, 1);
+	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 3, current_date, 1);
 
-INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, fk_idSaison) 
+INSERT INTO schema.episode ( title, synopsis, releaseDate, duration, actor, realisator, img, note, creationDate, fk_idSaison) 
 VALUES ('S01E01 - UN QUARTIER PAISIBLE', 
 	'Sans nouvelle de sa fille adolescente après une soirée un peu trop arrosée, Tom Delaney décide de se mettre à sa recherche, quitte à bouleverser la tranquille communauté dans laquelle vivent lui et sa famille. Tous ses résidents vont alors être eux aussi embarqués dans un véritable cauchemar.',
-	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 3, 1);
+	'2018-05-10', 45, ARRAY['John Doe', 'Barry White'], 'Martin Gay', 'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg', 5, current_date, 1);
+
+
 
 SELECT * FROM schema.episode;
 
 
 -- Insert movie
 INSERT INTO schema.movie ( title, synopsis, releaseDate, 
-	nationality, duration, boxOffice, actor, realisator, img, note, tag) 
+	nationality, duration, boxOffice, actor, realisator, img, note, tag, creationDate) 
 VALUES ('Coco', 
 	'Depuis déjà plusieurs générations, la musique est bannie dans la famille de Miguel. Un vrai déchirement pour le jeune garçon dont le rêve ultime est de devenir un musicien aussi accompli que son idole, Ernesto de la Cruz.',
 	'2017-11-29', 'américain', 105,	100500,	ARRAY['John Doe', 'Gregor McKillan'], 'John Realisator',
 	'http://fr.web.img5.acsta.net/r_1280_720/pictures/17/12/11/11/56/4200411.jpg',
-	4, ARRAY['fantaisie', 'futuriste']);
+	4, ARRAY['fantaisie', 'futuriste'], current_date);
 
 INSERT INTO schema.movie ( title, synopsis, releaseDate, 
-	nationality, duration, boxOffice, actor, realisator, img, note, tag) 
+	nationality, duration, boxOffice, actor, realisator, img, note, tag, creationDate) 
 VALUES ('Coco', 
 	'Depuis déjà plusieurs générations, la musique est bannie dans la famille de Miguel. Un vrai déchirement pour le jeune garçon dont le rêve ultime est de devenir un musicien aussi accompli que son idole, Ernesto de la Cruz.',
 	'2017-11-29', 'américain', 105,	100500,	ARRAY['John Doe', 'Gregor McKillan'], 'John Realisator',
 	'http://fr.web.img5.acsta.net/r_1280_720/pictures/17/12/11/11/56/4200411.jpg',
-	4, ARRAY['fantaisie', 'futuriste']);
+	4, ARRAY['fantaisie', 'futuriste'], current_date);
 
 INSERT INTO schema.movie ( title, synopsis, releaseDate, 
-	nationality, duration, boxOffice, actor, realisator, img, note, tag) 
+	nationality, duration, boxOffice, actor, realisator, img, note, tag, creationDate) 
 VALUES ('Coco', 
 	'Depuis déjà plusieurs générations, la musique est bannie dans la famille de Miguel. Un vrai déchirement pour le jeune garçon dont le rêve ultime est de devenir un musicien aussi accompli que son idole, Ernesto de la Cruz.',
 	'2017-11-29', 'américain', 105,	100500,	ARRAY['John Doe', 'Gregor McKillan'], 'John Realisator',
 	'http://fr.web.img5.acsta.net/r_1280_720/pictures/17/12/11/11/56/4200411.jpg',
-	4, ARRAY['fantaisie', 'futuriste']);
+	3, ARRAY['fantaisie', 'futuriste'], current_date);
 
 INSERT INTO schema.movie ( title, synopsis, releaseDate, 
-	nationality, duration, boxOffice, actor, realisator, img, note, tag) 
+	nationality, duration, boxOffice, actor, realisator, img, note, tag, creationDate) 
 VALUES ('Coco', 
 	'Depuis déjà plusieurs générations, la musique est bannie dans la famille de Miguel. Un vrai déchirement pour le jeune garçon dont le rêve ultime est de devenir un musicien aussi accompli que son idole, Ernesto de la Cruz.',
 	'2017-11-29', 'américain', 105,	100500,	ARRAY['John Doe', 'Gregor McKillan'], 'John Realisator',
 	'http://fr.web.img5.acsta.net/r_1280_720/pictures/17/12/11/11/56/4200411.jpg',
-	4, ARRAY['fantaisie', 'futuriste']);
+	2, ARRAY['fantaisie', 'futuriste'], current_date);
+
 
 INSERT INTO schema.movie ( title, synopsis, releaseDate, 
-	nationality, duration, boxOffice, actor, realisator, img, note, tag) 
+	nationality, duration, boxOffice, actor, realisator, img, note, tag, creationDate) 
 VALUES ('Coco', 
 	'Depuis déjà plusieurs générations, la musique est bannie dans la famille de Miguel. Un vrai déchirement pour le jeune garçon dont le rêve ultime est de devenir un musicien aussi accompli que son idole, Ernesto de la Cruz.',
 	'2017-11-29', 'américain', 105,	100500,	ARRAY['John Doe', 'Gregor McKillan'], 'John Realisator',
 	'http://fr.web.img5.acsta.net/r_1280_720/pictures/17/12/11/11/56/4200411.jpg',
-	4, ARRAY['fantaisie', 'futuriste']);
+	2, ARRAY['fantaisie', 'futuriste'], '20/09/2018');
+
+INSERT INTO schema.movie ( title, synopsis, releaseDate, 
+	nationality, duration, boxOffice, actor, realisator, img, note, tag, creationDate) 
+VALUES ('Coco', 
+	'Depuis déjà plusieurs générations, la musique est bannie dans la famille de Miguel. Un vrai déchirement pour le jeune garçon dont le rêve ultime est de devenir un musicien aussi accompli que son idole, Ernesto de la Cruz.',
+	'2017-11-29', 'américain', 105,	100500,	ARRAY['John Doe', 'Gregor McKillan'], 'John Realisator',
+	'http://fr.web.img5.acsta.net/r_1280_720/pictures/17/12/11/11/56/4200411.jpg',
+	2, ARRAY['fantaisie', 'futuriste'], '25/12/2018');
 
 SELECT * FROM schema.movie;
 
