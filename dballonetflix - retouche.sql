@@ -39,7 +39,7 @@ CREATE TABLE schema.article (
     img VARCHAR(255),
 	note INT,
     tag VARCHAR(100)[],
-	fk_idAuteur INT REFERENCES schema.user
+	fk_idAuteur INT REFERENCES schema.user ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------
@@ -124,14 +124,131 @@ CREATE TABLE schema.comment (
 	title VARCHAR(100),
 	content TEXT,
 	creationDate DATE,
-	fk_idAuteur INT REFERENCES schema.user,
-	fk_idArticle INT REFERENCES schema.article,
+	fk_idAuteur INT REFERENCES schema.user ON DELETE CASCADE,
+	fk_idArticle INT REFERENCES schema.article ON DELETE CASCADE,
 	fk_idSerie INT REFERENCES schema.serie,
 	fk_idSaison INT REFERENCES schema.saison,
 	fk_idEpisode INT REFERENCES schema.episode,
 	fk_idMovie INT REFERENCES schema.movie
 );
 
+-- LIKE --
+-- -----------------------------------------------------
+-- Table schema.Article_Like
+-- -----------------------------------------------------
+
+CREATE TABLE schema.article_like (
+
+	idArticle_like SERIAL PRIMARY KEY,
+	fk_idArticle INT REFERENCES schema.article ON DELETE CASCADE,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Serie_Like
+-- -----------------------------------------------------
+
+CREATE TABLE schema.serie_like (
+
+	idSerie_like SERIAL PRIMARY KEY,
+	fk_idSerie INT REFERENCES schema.serie,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Saison_Like
+-- -----------------------------------------------------
+
+CREATE TABLE schema.saison_like (
+
+	idSaison_like SERIAL PRIMARY KEY,
+	fk_idSaison INT REFERENCES schema.saison,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Episode_Like
+-- -----------------------------------------------------
+
+CREATE TABLE schema.episode_like (
+
+	idEpisode_like SERIAL PRIMARY KEY,
+	fk_idEpisode INT REFERENCES schema.episode,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+-- -----------------------------------------------------
+-- Table schema.Movie_Like
+-- -----------------------------------------------------
+
+CREATE TABLE schema.movie_like (
+
+	idMovie_like SERIAL PRIMARY KEY,
+	fk_idMovie INT REFERENCES schema.movie,
+	fk_idUserlike INT REFERENCES schema.user
+);
+
+
+-- Note --
+-- -----------------------------------------------------
+-- Table schema.Article_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.article_note (
+
+	idArticle_note SERIAL PRIMARY KEY,
+	fk_idArticle INT REFERENCES schema.article ON DELETE CASCADE,
+	fk_idUsernote INT REFERENCES schema.user,
+	note INT
+);
+
+-- -----------------------------------------------------
+-- Table schema.Serie_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.serie_note (
+
+	idSerie_note SERIAL PRIMARY KEY,
+	fk_idSerie INT REFERENCES schema.serie,
+	fk_idUsernote INT REFERENCES schema.user,
+	note INT
+);
+
+-- -----------------------------------------------------
+-- Table schema.Saison_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.saison_note (
+
+	idSaison_note SERIAL PRIMARY KEY,
+	fk_idSaison INT REFERENCES schema.saison,
+	fk_idUsernote INT REFERENCES schema.user,
+	note INT
+);
+
+-- -----------------------------------------------------
+-- Table schema.Episode_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.episode_note (
+
+	idEpisode_note SERIAL PRIMARY KEY,
+	fk_idEpisode INT REFERENCES schema.episode,
+	fk_idUsernote INT REFERENCES schema.user,
+	note INT
+);
+
+-- -----------------------------------------------------
+-- Table schema.Movie_Note
+-- -----------------------------------------------------
+
+CREATE TABLE schema.movie_note (
+
+	idMovie_note SERIAL PRIMARY KEY,
+	fk_idMovie INT REFERENCES schema.movie,
+	fk_idUsernote INT REFERENCES schema.user,
+	note INT
+);
 
 -- Insert user
 INSERT INTO schema.user ( pseudo, email, password, lastName, firstName, nbStreet, street, city, postalCode, sex, birthDay, inscriptionDate, rgpd, likedArticles)
@@ -148,6 +265,7 @@ VALUES ('davidPseudo', 'davidEmail', 'davidMdp', 'davidLastName', 'davidFirstNam
 
 SELECT * FROM schema.user;
 
+SELECT * FROM schema.user WHERE pseudo LIKE 'mew%';
 
 -- Insert article
 INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
@@ -192,7 +310,7 @@ SELECT * FROM schema.article;
 
 -- Insert serie
 INSERT INTO schema.serie ( title, synopsis, nationality, distributor, img, note, tag, creationDate) 
-VALUES ('Safe', 
+VALUES ('Coco', 
 	'Récemment veuf, Tom est à l''aube d''une nouvelle vie avec ses deux filles, au sein d''une communauté privilégiée et protégée. Mais des secrets profondément enfouis vont venir bouleverser tout ce bel équilibre. Disparition mystérieuse, adultères, assassinat…',
 	'américain', 'John Distributor', 'https://i.pinimg.com/originals/b3/2d/85/b32d853d4b93eb5add56b1b60b4eb190.jpg', 2, ARRAY['guerre', 'fantaisie'], current_date);
 
@@ -311,19 +429,25 @@ SELECT * FROM schema.movie;
 
 
 -- Insert comment
-INSERT INTO schema.comment ( title, content, creationDate, fk_idAuteur, fk_idArticle)
-VALUES ('Comment 1' , ' Content 1', current_date, 1, 2);
+INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idArticle)
+VALUES ('Comment 1' , ' Content 1', 1, 2);
 
-INSERT INTO schema.comment ( title, content, creationDate, fk_idAuteur, fk_idSerie)
-VALUES ('Comment 2' , ' Content 2', current_date, 4, 3);
+INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idSerie)
+VALUES ('Comment 2' , ' Content 2', 1, 1);
 
-INSERT INTO schema.comment ( title, content, creationDate, fk_idAuteur, fk_idSaison)
-VALUES ('Comment 3' , ' Content 3', current_date, 2, 4);
+INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idSaison)
+VALUES ('Comment 3' , ' Content 3', 1, 1);
 
-INSERT INTO schema.comment ( title, content, creationDate, fk_idAuteur, fk_idEpisode)
-VALUES ('Comment 4' , ' Content 4', current_date, 1, 3);
+INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idEpisode)
+VALUES ('Comment 4' , ' Content 4', 1, 3);
 
-INSERT INTO schema.comment ( title, content, creationDate, fk_idAuteur, fk_idMovie)
-VALUES ('Comment 5' , ' Content 5', current_date, 2, 3);
+INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idMovie)
+VALUES ('Comment 5' , ' Content 5', 1, 1);
 
 SELECT * FROM schema.comment;
+
+
+-- Insert article_note
+INSERT INTO schema.article_note ( fk_idArticle, fk_idUsernote, note) VALUES (1, 1, 4);
+
+SELECT * FROM schema.article_note;
