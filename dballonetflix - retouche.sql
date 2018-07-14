@@ -17,11 +17,6 @@ CREATE TABLE schema.user (
 	sex VARCHAR(100),
 	birthDay DATE,
 	inscriptionDate DATE,
-    likedArticles INT[],
-    likedSeries INT[],
-    likedSaisons INT[],
-    likedEpisodes INT[],
-    likedMovies INT[],
 	rgpd BOOLEAN
 );
 
@@ -37,8 +32,8 @@ CREATE TABLE schema.article (
 	content TEXT,
 	creationDate DATE,
     img VARCHAR(255),
+    background VARCHAR(255),
 	note INT,
-    tag VARCHAR(100)[],
 	fk_idAuteur INT REFERENCES schema.user ON DELETE CASCADE
 );
 
@@ -51,46 +46,12 @@ CREATE TABLE schema.serie (
 	idSerie SERIAL PRIMARY KEY,
 	title VARCHAR(100),
 	synopsis TEXT,
-	nationality VARCHAR(100),
-	distributor VARCHAR(100),
+	tag VARCHAR(255),
+	creator VARCHAR(100),
+    background VARCHAR(255),
     img VARCHAR(255),
     note INT,
-    tag VARCHAR(100)[],
 	creationDate DATE
-);
-
--- -----------------------------------------------------
--- Table schema.Saison
--- -----------------------------------------------------
-
-CREATE TABLE schema.saison (
-
-	idSaison SERIAL PRIMARY KEY,
-	title VARCHAR(100),
-	synopsis TEXT,
-    img VARCHAR(255),
-    note INT,
-	creationDate DATE,
-	fk_idSerie INT REFERENCES schema.serie
-);
-
--- -----------------------------------------------------
--- Table schema.Episode
--- -----------------------------------------------------
-
-CREATE TABLE schema.episode (
-
-	idEpisode SERIAL PRIMARY KEY,
-	title VARCHAR(100),
-	synopsis TEXT,
-	releaseDate DATE,
-	duration INT,
-    actor VARCHAR(100)[],
-    realisator VARCHAR(100),
-    img VARCHAR(255),
-    note INT,
-	creationDate DATE,
-	fk_idSaison INT REFERENCES schema.saison
 );
 
 -- -----------------------------------------------------
@@ -104,13 +65,10 @@ CREATE TABLE schema.movie (
 	synopsis TEXT,
 	releaseDate DATE,
 	nationality VARCHAR(100),
-	duration INT,
-	boxOffice INT,
-    actor VARCHAR(100)[],
     realisator VARCHAR(100),
+    background VARCHAR(255),
     img VARCHAR(255),
     note INT,
-    tag VARCHAR(100)[],
 	creationDate DATE    
 );
 
@@ -127,8 +85,6 @@ CREATE TABLE schema.comment (
 	fk_idAuteur INT REFERENCES schema.user ON DELETE CASCADE,
 	fk_idArticle INT REFERENCES schema.article ON DELETE CASCADE,
 	fk_idSerie INT REFERENCES schema.serie,
-	fk_idSaison INT REFERENCES schema.saison,
-	fk_idEpisode INT REFERENCES schema.episode,
 	fk_idMovie INT REFERENCES schema.movie
 );
 
@@ -152,28 +108,6 @@ CREATE TABLE schema.serie_like (
 
 	idSerie_like SERIAL PRIMARY KEY,
 	fk_idSerie INT REFERENCES schema.serie,
-	fk_idUserlike INT REFERENCES schema.user
-);
-
--- -----------------------------------------------------
--- Table schema.Saison_Like
--- -----------------------------------------------------
-
-CREATE TABLE schema.saison_like (
-
-	idSaison_like SERIAL PRIMARY KEY,
-	fk_idSaison INT REFERENCES schema.saison,
-	fk_idUserlike INT REFERENCES schema.user
-);
-
--- -----------------------------------------------------
--- Table schema.Episode_Like
--- -----------------------------------------------------
-
-CREATE TABLE schema.episode_like (
-
-	idEpisode_like SERIAL PRIMARY KEY,
-	fk_idEpisode INT REFERENCES schema.episode,
 	fk_idUserlike INT REFERENCES schema.user
 );
 
@@ -215,30 +149,6 @@ CREATE TABLE schema.serie_note (
 );
 
 -- -----------------------------------------------------
--- Table schema.Saison_Note
--- -----------------------------------------------------
-
-CREATE TABLE schema.saison_note (
-
-	idSaison_note SERIAL PRIMARY KEY,
-	fk_idSaison INT REFERENCES schema.saison,
-	fk_idUsernote INT REFERENCES schema.user,
-	note INT
-);
-
--- -----------------------------------------------------
--- Table schema.Episode_Note
--- -----------------------------------------------------
-
-CREATE TABLE schema.episode_note (
-
-	idEpisode_note SERIAL PRIMARY KEY,
-	fk_idEpisode INT REFERENCES schema.episode,
-	fk_idUsernote INT REFERENCES schema.user,
-	note INT
-);
-
--- -----------------------------------------------------
 -- Table schema.Movie_Note
 -- -----------------------------------------------------
 
@@ -268,11 +178,11 @@ SELECT * FROM schema.user;
 SELECT * FROM schema.user WHERE pseudo LIKE 'mew%';
 
 -- Insert article
-INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
+INSERT INTO schema.article ( title, synopsis, content, creationDate, img, note)
 VALUES ('Siren : la série fantastique de Freeform', 
 	'Lancée en mars sur Freeform, "Siren", avec Eline Powell et Alex Roe, sera de retour en 2019 puisque la chaîne américaine a annoncé hier le renouvellement de la série pour une deuxième saison qui comptera cette fois-ci 16 épisodes.',
 	'Les sirènes badass de Siren n''ont pas fini de semer le chaos au sein de la petite ville de Bristol Cove ! La chaîne américaine Freeform a en effet annoncé hier, lors des Upfronts, avoir renouvelé la série fantastique emmenée par Eline Powell et Alex Roe pour une deuxième saison qui comptera 16 épisodes, contre 10 pour la première qui s achèvera le 24 mai aux Etats-Unis. Un renouvellement plutôt logique quand on sait que, selon TVLine, Siren est la série la plus vue de Freeform cette saison, devant The Fosters, et qu elle se paye même le luxe d être la série n°1, parmi toutes les nouveautés du câble lancées cette saison, sur la cible des femmes de 18-34 ans et de 12-34 ans.',
-	current_date, 'John Doe', 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 5, ARRAY['relation humaine', 'humour']);
+	current_date, 'https://expat-03cdkbceglbjg.stackpathdns.com/upload/events/covers/74a081f0d705411255b17-events_cover.jpg', 5);
 
 INSERT INTO schema.article ( title, synopsis, content, creationDate, auteur, img, note, tag)
 VALUES ('Siren : la série fantastique de Freeform', 
@@ -430,7 +340,7 @@ SELECT * FROM schema.movie;
 
 -- Insert comment
 INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idArticle)
-VALUES ('Comment 1' , ' Content 1', 1, 2);
+VALUES ('Comment 1' , ' Content 1', 1, 1);
 
 INSERT INTO schema.comment ( title, content, fk_idAuteur, fk_idSerie)
 VALUES ('Comment 2' , ' Content 2', 1, 1);
